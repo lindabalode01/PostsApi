@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Articles</title>
+</head>
+<body>
+<h1>All Articles</h1>
+<ul>
+    {% for article in articles %}
+        <li>
+            <h2>{{ article.getTitle() }}</h2>
+            <p>{{ article.getBody() }}</p>
+            <p>Author: {{ article.getUserId() }}</p>
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>
