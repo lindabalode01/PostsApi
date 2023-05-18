@@ -8,7 +8,7 @@ class Post
     private string $body;
     private int $userId;
 
-    public function __construct(string $title, string  $body, int $userId)
+    public function __construct(string $title, string $body, int $userId)
     {
         $this->title = $title;
         $this->body = $body;

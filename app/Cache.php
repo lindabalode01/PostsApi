@@ -1,5 +1,7 @@
 <?php
+
 namespace PostsApi;
+
 use Carbon\Carbon;
 
 class Cache

@@ -4,7 +4,6 @@ namespace PostsApi;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use POstsApi\Cache;
 use PostsApi\Models\Comment;
 use PostsApi\Models\Post;
 use PostsApi\Models\User;
@@ -12,22 +11,23 @@ use PostsApi\Models\User;
 class ApiClient
 {
     private Client $client;
-    private const BASE_URI = 'https://jsonplaceholder.typicode.com/';
 
     public function __construct()
     {
-        $this->client = new Client();
+        $this->client = new Client([
+            'base_uri' => 'https://jsonplaceholder.typicode.com'
+        ]);
     }
 
-    public function fetchAll(string $id = null): array
+    public function fetchAll(): array
     {
         try {
-            if (!Cache::ifHas('all_articles' . $id)) {
-                $response = $this->client->get(self::BASE_URI . "articles/" . $id);
+            if (!Cache::ifHas('all_articles')) {
+                $response = $this->client->get('posts');
                 $responseJson = $response->getBody()->getContents();
-                Cache::save('all_articles' . $id, $responseJson, 120);
+                Cache::save('all_articles', $responseJson, 120);
             } else {
-                $responseJson = Cache::get('all_articles' . $id);
+                $responseJson = Cache::get('all_articles');
             }
             $articles = json_decode($responseJson);
             return $this->createCollection($articles);
@@ -36,15 +36,15 @@ class ApiClient
         }
     }
 
-    public function getComments(string $id): array
+    public function getComments(int $postId): array
     {
         try {
-            if (!Cache::ifHas('comments' . $id)) {
-                $response = $this->client->get(self::BASE_URI . "comments/" . $id);
+            if (!Cache::ifHas('comments')) {
+                $response = $this->client->get('comments?postId=' . $postId);
                 $responseJson = $response->getBody()->getContents();
-                Cache::save('comments' . $id, $responseJson, 120);
+                Cache::save('comments', $responseJson, 120);
             } else {
-                $responseJson = Cache::get('comments' . $id);
+                $responseJson = Cache::get('comments');
             }
             $allComments = json_decode($responseJson);
             $comments = [];
@@ -63,13 +63,13 @@ class ApiClient
         }
     }
 
-    public function getUsers(string $id = null): array
+    public function getUsers(): array
     {
         try {
-            if (!\PostsApi\Cache::ifHas('users' . $id)) {
-                $response = $this->client->get(self::BASE_URI . "users/" . $id);
+            if (!\PostsApi\Cache::ifHas('users')) {
+                $response = $this->client->get('users/');
                 $responseJson = $response->getBody()->getContents();
-                Cache::save('users' . $id, $responseJson, 120);
+                Cache::save('users', $responseJson, 120);
             } else {
                 $responseJson = Cache::get('users' . $id);
             }

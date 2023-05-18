@@ -21,7 +21,7 @@ class TwigRender
     public function render(View $view): string
     {
         try {
-            return $this->twig->render($view->getPath(), ['articles]' => $view->getPosts()]);
+            return $this->twig->render($view->getPath(), $view->getPosts());
 
         } catch (LoaderError|RuntimeError|SyntaxError $e) {
             return $e->getMessage();
