@@ -1,11 +1,11 @@
 <?php
 
-namespace PostsApi\Controler;
+namespace PostsApi\Controllers;
 
 use PostsApi\ApiClient;
 use PostsApi\Core\View;
 
-class PostControler
+class ArticleController
 {
     private ApiClient $xlient;
 
