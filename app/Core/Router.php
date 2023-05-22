@@ -11,7 +11,7 @@ class Router
         $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
             $r->addRoute('GET', '/', [\PostsApi\Controllers\ArticleController::class, 'showAllPosts']);
             $r->addRoute('GET', '/articles', [\PostsApi\Controllers\ArticleController::class, 'showAllPosts']);
-            $r->addRoute('GET', '/users', [\PostsApi\Controllers\ArticleController::class, 'showUsers']);
+            $r->addRoute('GET', '/users', [\PostsApi\Controllers\UserController::class, 'showUsers']);
 
         });
 

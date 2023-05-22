@@ -4,22 +4,19 @@ namespace PostsApi\Models;
 
 class User
 {
-    private string $id;
+    private int $id;
     private string $name;
     private string $username;
     private string $email;
     private string $phone;
     private string $website;
-    private string $company;
-
     public function __construct(
-        string $id,
+        int $id,
         string $name,
         string $username,
         string $email,
         string $phone,
-        string $website,
-        string $company
+        string $website
     )
     {
         $this->id = $id;
@@ -27,11 +24,10 @@ class User
         $this->username = $username;
         $this->email = $email;
         $this->phone = $phone;
-        $this->website = $we;
-        $this->company = $company;
+        $this->website = $website;
     }
 
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }
@@ -60,10 +56,4 @@ class User
     {
         return $this->website;
     }
-
-    public function getCompany(): string
-    {
-        return $this->company;
-    }
-
 }
